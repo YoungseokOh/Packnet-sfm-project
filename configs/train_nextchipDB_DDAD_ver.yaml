@@ -5,32 +5,31 @@ checkpoint:
     save_top_k: -1
 model:
     name: 'SelfSupModel'
-    checkpoint_path: '/home/seok436/data/md_model/PackNet01_MR_velsup_CStoK.ckpt'
+    checkpoint_path: '/home/seok436/data/md_model/ResNet18_MR_selfsup_D.ckpt'
     optimizer:
         name: 'Adam'
         depth:
-            lr: 0.000002
+            lr: 0.000001
         pose:
-            lr: 0.000002
+            lr: 0.000001
     scheduler:
         name: 'StepLR'
         step_size: 30
         gamma: 0.5
     depth_net:
-        name: 'PackNet01'
-        version: '1A'
+        name: 'DepthResNet'
+        version: '18pt'
     pose_net:
-        name: 'PoseNet'
-        version: ''
+        name: 'PoseResNet'
+        version: '18pt'
     params:
-        crop: 'garg'
         min_depth: 0.0
-        max_depth: 80.0
+        max_depth: 200.0
 datasets:
     augmentation:
-        image_shape: (192, 640)
+        image_shape: (384, 640)
     train:
-        batch_size: 10
+        batch_size: 20
         dataset: ['Image']
         path: ['/home/seok436/data/nextchipDB_SSL/crop/v1+/T_0001/']
         split: ['{:010}']

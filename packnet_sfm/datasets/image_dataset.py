@@ -15,7 +15,7 @@ def dummy_calibration(image):
     w, h = [float(d) for d in image.size]
     # front camera
     return np.array([[2000. , 0.    , w / 2. - 0.5],
-                     [0.    , 2000. , 488.0],
+                     [0.    , 2000. , h / 2. - 0.5],
                      [0.    , 0.    , 1.          ]])
 
     # Rear camera

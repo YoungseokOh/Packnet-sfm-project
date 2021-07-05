@@ -99,11 +99,12 @@ def infer_and_save_depth(input_file, output_file, model_wrapper, image_shape, ha
         # Prepare RGB image
         rgb = image[0].permute(1, 2, 0).detach().cpu().numpy() * 255
         # Prepare inverse depth
-        viz_pred_inv_depth = viz_inv_depth(pred_inv_depth[0]) * 255
+        viz_pred_inv_depth = viz_inv_depth(pred_inv_depth[0], normalizer=8.0) * 255
         # depth = inv2depth(pred_inv_depth[0])
         # Concatenate both vertically
         # depth = imread(depth_path + output_file[-14:-4] + '.png')
         image = np.concatenate([rgb, viz_pred_inv_depth], 0)
+        # image = np.concatenate(viz_pred_inv_depth, 0) // inv depth inference only
         # Save visualization
         print('Saving {} to {}'.format(
             pcolor(input_file, 'cyan', attrs=['bold']),
