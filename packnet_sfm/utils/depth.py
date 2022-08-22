@@ -64,7 +64,7 @@ def write_depth(filename, depth, intrinsics=None):
 
 
 def viz_inv_depth(inv_depth, normalizer=None, percentile=95,
-                  colormap='plasma', filter_zeros=False):
+                  colormap='magma', filter_zeros=False):
     """
     Converts an inverse depth map to a colormap for visualization.
 
@@ -98,7 +98,6 @@ def viz_inv_depth(inv_depth, normalizer=None, percentile=95,
             inv_depth[inv_depth > 0] if filter_zeros else inv_depth, percentile)
     inv_depth /= (normalizer + 1e-6)
     return cm(np.clip(inv_depth, 0., 1.0))[:, :, :3]
-
 
 def inv2depth(inv_depth):
     """

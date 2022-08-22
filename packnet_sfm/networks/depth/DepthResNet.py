@@ -1,6 +1,7 @@
 # Copyright 2020 Toyota Research Institute.  All rights reserved.
 
 import torch.nn as nn
+import torch.nn.functional as F
 from functools import partial
 
 from packnet_sfm.networks.layers.resnet.resnet_encoder import ResnetEncoder
@@ -33,8 +34,8 @@ class DepthResNet(nn.Module):
 
         self.encoder = ResnetEncoder(num_layers=num_layers, pretrained=pretrained)
         self.decoder = DepthDecoder(num_ch_enc=self.encoder.num_ch_enc)
-        self.scale_inv_depth = partial(disp_to_depth, min_depth=0.1, max_depth=100.0)
-
+        self.scale_inv_depth = partial(disp_to_depth, min_depth=0.1, max_depth=80.0)
+        
     def forward(self, x):
         """
         Runs the network and returns inverse depth maps
@@ -43,10 +44,12 @@ class DepthResNet(nn.Module):
         x = self.encoder(x)
         x = self.decoder(x)
         disps = [x[('disp', i)] for i in range(4)]
+        d_disp_0 = disps[0]
 
         if self.training:
             return [self.scale_inv_depth(d)[0] for d in disps]
         else:
+            # return F.interpolate(self.scale_inv_depth(d_disp_0)[0], scale_factor=0.5)
             return self.scale_inv_depth(disps[0])[0]
 
 ########################################################################################################################

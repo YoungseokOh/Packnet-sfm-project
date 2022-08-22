@@ -29,7 +29,7 @@ datasets:
     augmentation:
         image_shape: (384, 640)
     train:
-        batch_size: 20
+        batch_size: 18
         dataset: ['Image']
         path: ['/home/seok436/data/nextchipDB_SSL/crop/v1+/T_0001/']
         split: ['{:010}']

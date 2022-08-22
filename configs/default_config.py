@@ -68,7 +68,7 @@ cfg.model.optimizer.pose.weight_decay = 0.0     # Pose weight decay
 ########################################################################################################################
 cfg.model.scheduler = CN()
 cfg.model.scheduler.name = 'StepLR'     # Scheduler name
-cfg.model.scheduler.step_size = 10      # Scheduler step size
+cfg.model.scheduler.step_size = 12      # Scheduler step size
 cfg.model.scheduler.gamma = 0.5         # Scheduler gamma value
 cfg.model.scheduler.T_max = 20          # Scheduler maximum number of iterations
 ########################################################################################################################

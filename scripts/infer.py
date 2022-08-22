@@ -30,7 +30,7 @@ def parse_args():
     parser.add_argument('--checkpoint', type=str, help='Checkpoint (.ckpt)')
     parser.add_argument('--input', type=str, help='Input file or folder')
     parser.add_argument('--output', type=str, help='Output file or folder')
-    parser.add_argument('--image_shape', type=int, nargs='+', default=None,
+    parser.add_argument('--image_shape', type=int, nargs='+', default=(192, 640),
                         help='Input and output image shape '
                              '(default: checkpoint\'s config.datasets.augmentation.image_shape)')
     parser.add_argument('--half', action="store_true", help='Use half precision (fp16)')
@@ -90,7 +90,7 @@ def infer_and_save_depth(input_file, output_file, model_wrapper, image_shape, ha
 
     if save == 'npz' or save == 'png':
         # Get depth from predicted depth map and save to different formats
-        filename = '{}.{}'.format(os.path.splitext(output_file)[0], save)
+        filename = '{}_depth.{}'.format(os.path.splitext(output_file)[0], save)
         print('Saving {} to {}'.format(
             pcolor(input_file, 'cyan', attrs=['bold']),
             pcolor(filename, 'magenta', attrs=['bold'])))
@@ -99,12 +99,9 @@ def infer_and_save_depth(input_file, output_file, model_wrapper, image_shape, ha
         # Prepare RGB image
         rgb = image[0].permute(1, 2, 0).detach().cpu().numpy() * 255
         # Prepare inverse depth
-        viz_pred_inv_depth = viz_inv_depth(pred_inv_depth[0], normalizer=8.0) * 255
-        # depth = inv2depth(pred_inv_depth[0])
+        viz_pred_inv_depth = viz_inv_depth(pred_inv_depth[0]) * 255
         # Concatenate both vertically
-        # depth = imread(depth_path + output_file[-14:-4] + '.png')
         image = np.concatenate([rgb, viz_pred_inv_depth], 0)
-        # image = np.concatenate(viz_pred_inv_depth, 0) // inv depth inference only
         # Save visualization
         print('Saving {} to {}'.format(
             pcolor(input_file, 'cyan', attrs=['bold']),

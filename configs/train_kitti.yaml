@@ -1,3 +1,8 @@
+arch:
+    max_epochs: 20
+checkpoint:
+    filepath: '/home/seok436/data/md_model/kitti'
+    save_top_k: -1
 model:
     name: 'SelfSupModel'
     optimizer:
@@ -11,11 +16,11 @@ model:
         step_size: 30
         gamma: 0.5
     depth_net:
-        name: 'PackNet01'
-        version: '1A'
+        name: 'DepthResNet'
+        version: '18pt'
     pose_net:
-        name: 'PoseNet'
-        version: ''
+        name: 'PoseResNet'
+        version: '18pt'
     params:
         crop: 'garg'
         min_depth: 0.0
@@ -26,18 +31,18 @@ datasets:
     train:
         batch_size: 4
         dataset: ['KITTI']
-        path: ['/home/seok436/data/kitti_data']
+        path: ['/home/seok436/data/datasets/KITTI_raw']
         split: ['data_splits/eigen_zhou_files.txt']
         depth_type: ['velodyne']
         repeat: [2]
     validation:
         dataset: ['KITTI']
-        path: ['/home/seok436/data/kitti_data']
+        path: ['/home/seok436/data/datasets/KITTI_raw']
         split: ['data_splits/eigen_val_files.txt',
                 'data_splits/eigen_test_files.txt']
         depth_type: ['velodyne']
     test:
         dataset: ['KITTI']
-        path: ['/home/seok436/data/kitti_data']
+        path: ['/home/seok436/data/datasets/KITTI_raw']
         split: ['data_splits/eigen_test_files.txt']
         depth_type: ['velodyne']

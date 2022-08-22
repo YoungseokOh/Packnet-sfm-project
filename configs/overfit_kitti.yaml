@@ -1,5 +1,5 @@
 arch:
-    max_epochs: 50
+    max_epochs: 1
 model:
     name: 'SelfSupModel'
     optimizer:
@@ -26,12 +26,12 @@ datasets:
     augmentation:
         image_shape: (192, 640)
     train:
-        batch_size: 6
+        batch_size: 1
         dataset: ['KITTI']
         path: ['/home/seok436/packnet-sfm-master/packnet_sfm/datasets/KITTI_tiny']
         split: ['kitti_tiny.txt']
         depth_type: ['velodyne']
-        repeat: [1000]
+        repeat: [1]
     validation:
         dataset: ['KITTI']
         path: ['/home/seok436/packnet-sfm-master//packnet_sfm/datasets/KITTI_tiny']
