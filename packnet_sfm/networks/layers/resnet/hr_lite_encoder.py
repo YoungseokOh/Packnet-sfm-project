@@ -41,9 +41,11 @@ class h_sigmoid(nn.Module):
 
     def forward(self, x):
         # Original code
-        return self.relu(x + 3) / 6
+        # return self.relu(x + 3) / 6
         # Hardswish
         # return self.sigmoid(x)
+        # ReLU
+        return self.relu(x)
 
 
 class h_swish(nn.Module):
@@ -154,9 +156,10 @@ class InvertedResidual(nn.Module):
 
 
 class MobileNetV3(nn.Module):
-    def __init__(self, width_mult=1.):
+    def __init__(self, width_mult=0.75):
         super(MobileNetV3, self).__init__()
         # setting of inverted residual blocks
+        # Large 1.0
         cfgs = [
         # k, t, c, SE, HS, s
         [3, 1, 16, 0, 0, 1],
@@ -175,6 +178,25 @@ class MobileNetV3(nn.Module):
         [5, 6, 160, 1, 1, 1],
         [5, 6, 160, 1, 1, 1] # feature 5
         ]
+        # Large 0.75
+        # cfgs = [
+        # # k, t, c, SE, HS, s
+        # [3, 1, 16, 0, 0, 1],
+        # [3, 4, 24, 0, 0, 2], # feature 2
+        # [3, 3, 24, 0, 0, 1],
+        # [5, 3, 32, 1, 0, 2], # feature 3
+        # [5, 3, 32, 1, 0, 1],
+        # [5, 3, 32, 1, 0, 1],
+        # [3, 6, 64, 0, 1, 2], # feature 4
+        # [3, 2.5, 64, 0, 1, 1],
+        # [3, 2.3, 64, 0, 1, 1],
+        # [3, 2.3, 64, 0, 1, 1],
+        # [3, 6, 88, 1, 1, 1],
+        # [3, 6, 88, 1, 1, 1],
+        # [5, 6, 120, 1, 1, 2],
+        # [5, 6, 120, 1, 1, 1],
+        # [5, 6, 120, 1, 1, 1] # feature 5
+        # ]
 
         # building first layer
         input_channel = _make_divisible(16 * width_mult, 8)
@@ -192,11 +214,16 @@ class MobileNetV3(nn.Module):
 class MobileEncoder(nn.Module):
     def __init__(self, pretrained):
         super(MobileEncoder, self).__init__()
-
-        self.num_ch_enc = np.array([16, 24, 40, 80, 160])
+        # 1
+        # self.num_ch_enc = np.array([16, 24, 40, 80, 160])
+        # 0.75
+        self.num_ch_enc = np.array([16, 24, 32, 64, 120])
         self.encoder = MobileNetV3()
         if pretrained:
-            model_path = 'configs/mobilenetv3-large-1cd25616.pth'
+            # Large - 1
+            # model_path = 'configs/mobilenetv3-large-1cd25616.pth'
+            # Large - 0.75
+            model_path = '/home/seok436/packnet-sfm-master/configs/mobilenetv3-large-0.75-9632d2a8.pth'
             state_dict = torch.load(model_path)
             filter_dict_enc = {k: v for k, v in state_dict.items() if k in self.encoder.state_dict()}
             # change shape torch.Size
@@ -213,7 +240,7 @@ class MobileEncoder(nn.Module):
 
     def forward(self, input_image):
         return_features = []
-        # x = (input_image - 0.45) / 0.225
+        x = (input_image - 0.45) / 0.225
         x = input_image
         return_features.append(self.encoder.features[0](x))
         return_features.append(self.encoder.features[1:3](return_features[-1]))

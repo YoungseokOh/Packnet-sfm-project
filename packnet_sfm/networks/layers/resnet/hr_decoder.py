@@ -13,20 +13,23 @@ class HRDepthDecoder(nn.Module):
         self.scales = scales
         self.mobile_encoder = mobile_encoder
         if mobile_encoder:
-            self.num_ch_dec = np.array([4, 12, 20, 40, 80])
+            # Large 1.0
+            # self.num_ch_dec = np.array([4, 12, 20, 40, 80])
+            # Large 0.75
+            self.num_ch_dec = np.array([4, 12, 16, 32, 80])
         else:
             self.num_ch_dec = np.array([16, 32, 64, 128, 256])
 
         self.all_position = ["01", "11", "21", "31", "02", "12", "22", "03", "13", "04"]
         # Original code
-        # self.attention_position = ["31", "22", "13", "04"]
-        # self.non_attention_position = ["01", "11", "21", "02", "12", "03"]
+        self.attention_position = ["31", "22", "13", "04"]
+        self.non_attention_position = ["01", "11", "21", "02", "12", "03"]
         # All attention (fSE)
         # self.attention_position = ["31", "22", "13", "04", "01", "11", "21", "02", "12", "03"]
         # self.non_attention_position = []
         # None attention
-        self.attention_position = []
-        self.non_attention_position = ["01", "11", "21", "02", "12", "03", "31", "22", "13", "04"]
+        # self.attention_position = []
+        # self.non_attention_position = ["01", "11", "21", "03", "31", "13", "04", "22", "12", "02"]
         self.convs = nn.ModuleDict()
         for j in range(5):
             for i in range(5 - j):
@@ -35,6 +38,7 @@ class HRDepthDecoder(nn.Module):
                 if i == 0 and j != 0:
                     num_ch_in /= 2
                 num_ch_out = num_ch_in / 2
+                # print("num_ch_in : ", num_ch_in, "num_ch_out : ", num_ch_out)
                 self.convs["X_{}{}_Conv_0".format(i, j)] = ConvBlock_HR(num_ch_in, num_ch_out)
 
                 # X_04 upconv 1, only add X_04 convolution
@@ -59,15 +63,17 @@ class HRDepthDecoder(nn.Module):
             row = int(index[0])
             col = int(index[1])
             if mobile_encoder:
+                # print(self.num_ch_enc[row], '+', self.num_ch_enc[row + 1] // 2, '+', self.num_ch_dec[row]*2*(col-1), ',', self.num_ch_dec[row] * 2)
                 self.convs["X_{}{}_Conv_1".format(row + 1, col - 1)] = ConvBlock(
                     self.num_ch_enc[row]+ self.num_ch_enc[row + 1] // 2 +
                     self.num_ch_dec[row]*2*(col-1), self.num_ch_dec[row] * 2)
+                
             else:
                 if col == 1:
                     self.convs["X_{}{}_Conv_1".format(row + 1, col - 1)] = ConvBlock(num_ch_enc[row + 1] // 2 +
                                                                             self.num_ch_enc[row], self.num_ch_dec[row + 1])
                 else:
-                    self.convs["X_"+index+"_downsample"] = Conv1x1(num_ch_enc[row+1] // 2 + self.num_ch_enc[row]
+                    self.convs["X_"+index+"_downsample"] = conv1x1(num_ch_enc[row+1] // 2 + self.num_ch_enc[row]
                                                                           + self.num_ch_dec[row+1]*(col-1), self.num_ch_dec[row + 1] * 2)
                     self.convs["X_{}{}_Conv_1".format(row + 1, col - 1)] = ConvBlock(self.num_ch_dec[row + 1] * 2, self.num_ch_dec[row + 1])
 
@@ -75,7 +81,10 @@ class HRDepthDecoder(nn.Module):
             self.convs["dispConvScale0"] = Conv3x3(4, self.num_output_channels)
             self.convs["dispConvScale1"] = Conv3x3(8, self.num_output_channels)
             self.convs["dispConvScale2"] = Conv3x3(24, self.num_output_channels)
-            self.convs["dispConvScale3"] = Conv3x3(40, self.num_output_channels)
+            # Large 1.0
+            # self.convs["dispConvScale3"] = Conv3x3(40, self.num_output_channels)
+            # Large 0.75
+            self.convs["dispConvScale3"] = Conv3x3(32, self.num_output_channels)
         else:
             for i in range(4):
                 self.convs["dispConvScale{}".format(i)] = Conv3x3(self.num_ch_dec[i], self.num_output_channels)
@@ -119,8 +128,9 @@ class HRDepthDecoder(nn.Module):
                         self.convs["X_{}{}_Conv_1".format(row + 1, col - 1)]]
                 if col != 1 and not self.mobile_encoder:
                     conv.append(self.convs["X_" + index + "_downsample"])
+                # print("X_{}{}".format(row+1, col-1), index, features["X_{}{}".format(row+1, col-1)].shape, low_features[0].shape)
                 features["X_" + index] = self.nestConv(conv, features["X_{}{}".format(row+1, col-1)], low_features)
-
+                
         x = features["X_04"]
         x = self.convs["X_04_Conv_0"](x)
         x = self.convs["X_04_Conv_1"](upsample(x))

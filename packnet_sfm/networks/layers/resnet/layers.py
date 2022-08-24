@@ -21,11 +21,10 @@ def disp_to_depth(disp, min_depth, max_depth):
     return scaled_disp, depth
 
 
-class Conv1x1(nn.Module):
+class conv1x1(nn.Module):
     def __init__(self, in_channels, out_channels):
-        super(Conv1x1, self).__init__()
-        self.conv = nn.Conv2d(in_channels, out_channels, 1, stride=1, bias=False)
-        # self.conv = nn.Conv2d(in_channels, in_channels, kernel_size=3, stride=1, padding=2, bias=False)
+        super(conv1x1, self).__init__()
+        self.conv = nn.Conv2d(in_channels, in_channels, kernel_size=3, stride=1, padding=2, bias=False)
 
     def forward(self, x):
         return self.conv(x)
@@ -37,8 +36,7 @@ class ConvBlock_HR(nn.Module):
     def __init__(self, in_channels, out_channels):
         super(ConvBlock_HR, self).__init__()
         self.conv = Conv3x3(in_channels, out_channels)
-        self.nonlin = nn.ELU(inplace=True)
-        # self.nonlin = nn.ReLU(inplace=True)
+        self.nonlin = nn.ReLU(inplace=True)
 
 
     def forward(self, x):
