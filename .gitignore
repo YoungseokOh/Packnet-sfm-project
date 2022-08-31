@@ -102,3 +102,37 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+configs/default_config.py
+configs/eval_ddad.yaml
+configs/eval_image.yaml
+configs/eval_kitti_md2.yaml
+configs/eval_kitti.yaml
+configs/mobilenetv3-large-1cd25616.pth
+configs/overfit_ddad.yaml
+configs/overfit_kitti.yaml
+configs/train_ddad.yaml
+configs/train_kitti_DepthResNet_640_192_qat.yaml
+configs/train_kitti_DepthResNet_640_192.yaml
+configs/train_kitti_DepthResNet_640_384_qat.yaml
+configs/train_kitti_DepthResNet_640_384.yaml
+configs/train_kitti_DiffNet_640_192.yaml
+configs/train_kitti_HRLiteNet_320_96.yaml
+configs/train_kitti_HRLiteNet_320_192.yaml
+configs/train_kitti_HRLiteNet_640_192.yaml
+configs/train_kitti_HRLiteNet_640_384.yaml
+configs/train_kitti_HRLiteNet_1024_320.yaml
+configs/train_kitti_HRLiteNet_1280_384 copy.yaml
+configs/train_kitti_HRLiteNet_1280_384.yaml
+configs/train_kitti_HRLiteNet_v2_640_192.yaml
+configs/train_kitti_HRnet.yaml
+configs/train_kitti.yaml
+configs/train_nextchipDB_back_NRS.yaml
+configs/train_nextchipDB_back.yaml
+configs/train_nextchipDB_DDAD_ver.yaml
+configs/train_nextchipDB_HRLiteNet.yaml
+configs/train_nextchipDB_TP_forback_1_intrinsic_dummy.yaml
+configs/train_nextchipDB_TP_forback_2_intrinsic_ours_TP_v3_no_automasking.yaml
+configs/train_nextchipDB_TP.yaml
+configs/train_nextchipDB.yaml
+configs/train_omnicam.yaml
+configs/mobilenetv3-large-0.75-9632d2a8.pth
