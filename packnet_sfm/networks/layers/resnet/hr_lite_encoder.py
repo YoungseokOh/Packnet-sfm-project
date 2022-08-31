@@ -36,16 +36,16 @@ class h_sigmoid(nn.Module):
         super(h_sigmoid, self).__init__()
         # Original MobileNetV3 ReLU6 --> ReLU
         # self.relu = nn.ReLU6(inplace=inplace)
-        self.relu = nn.ReLU(inplace=inplace)
-        # self.sigmoid = nn.Sigmoid()
+        # self.relu = nn.ReLU(inplace=inplace)
+        self.sigmoid = nn.Sigmoid()
 
     def forward(self, x):
         # Original code
         # return self.relu(x + 3) / 6
         # Hardswish
-        # return self.sigmoid(x)
+        return self.sigmoid(x)
         # ReLU
-        return self.relu(x)
+        # return self.relu(x)
 
 
 class h_swish(nn.Module):

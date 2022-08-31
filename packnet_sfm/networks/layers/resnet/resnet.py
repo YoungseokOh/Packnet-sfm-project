@@ -161,7 +161,7 @@ class Bottleneck(nn.Module):
 
         out = self.conv2(out)
         out = self.bn2(out)
-        out = self.relu(out)
+        out = self.relu2(out)
 
         out = self.conv3(out)
         out = self.bn3(out)
@@ -225,39 +225,39 @@ class ResNet(nn.Module):
                                    kernel_size=2,
                                    stride=2,
                                    bias=True)
-        self.layer1 = self._make_layer(block, 85, layers[0])
-        self.layer2 = self._make_layer(block,
-                                       106,
-                                       layers[1],
-                                       stride=2,
-                                       dilate=replace_stride_with_dilation[0])
-        self.layer3 = self._make_layer(block,
-                                       127,
-                                       layers[2],
-                                       stride=2,
-                                       dilate=replace_stride_with_dilation[1])
-        self.layer4 = self._make_layer(block,
-                                       148,
-                                       layers[3],
-                                       stride=2,
-                                       dilate=replace_stride_with_dilation[2])
-        # Original
-        # self.layer1 = self._make_layer(block, 64, layers[0])
+        # self.layer1 = self._make_layer(block, 85, layers[0])
         # self.layer2 = self._make_layer(block,
-        #                                128,
+        #                                106,
         #                                layers[1],
         #                                stride=2,
         #                                dilate=replace_stride_with_dilation[0])
         # self.layer3 = self._make_layer(block,
-        #                                256,
+        #                                127,
         #                                layers[2],
         #                                stride=2,
         #                                dilate=replace_stride_with_dilation[1])
         # self.layer4 = self._make_layer(block,
-        #                                512,
+        #                                148,
         #                                layers[3],
         #                                stride=2,
         #                                dilate=replace_stride_with_dilation[2])
+        # Original
+        self.layer1 = self._make_layer(block, 64, layers[0])
+        self.layer2 = self._make_layer(block,
+                                       128,
+                                       layers[1],
+                                       stride=2,
+                                       dilate=replace_stride_with_dilation[0])
+        self.layer3 = self._make_layer(block,
+                                       256,
+                                       layers[2],
+                                       stride=2,
+                                       dilate=replace_stride_with_dilation[1])
+        self.layer4 = self._make_layer(block,
+                                       512,
+                                       layers[3],
+                                       stride=2,
+                                       dilate=replace_stride_with_dilation[2])
         self.avgpool = nn.AdaptiveAvgPool2d((1, 1))
         self.fc = nn.Linear(512 * block.expansion, num_classes)
 
@@ -424,6 +424,7 @@ def resnet152(pretrained: bool = False,
                    progress, **kwargs)
 
 
+
 def resnext50_32x4d(pretrained: bool = False,
                     progress: bool = True,
                     **kwargs: Any) -> ResNet:
@@ -436,6 +437,9 @@ def resnext50_32x4d(pretrained: bool = False,
     """
     kwargs['groups'] = 32
     kwargs['width_per_group'] = 4
+    return _resnet('resnext50_32x4d', Bottleneck, [2, 2, 2, 2], pretrained,
+                   progress, **kwargs)
+    # Original
     return _resnet('resnext50_32x4d', Bottleneck, [3, 4, 6, 3], pretrained,
                    progress, **kwargs)
 
