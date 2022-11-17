@@ -14,9 +14,11 @@ class HRDepthDecoder(nn.Module):
         self.mobile_encoder = mobile_encoder
         if mobile_encoder:
             # Large 1.0
-            # self.num_ch_dec = np.array([4, 12, 20, 40, 80])
+            self.num_ch_dec = np.array([4, 12, 20, 40, 80])
             # Large 0.75
-            self.num_ch_dec = np.array([4, 12, 16, 32, 80])
+            # self.num_ch_dec = np.array([4, 12, 16, 32, 80])
+            # small 1.0
+            # self.num_ch_dec = np.array([4, 12, 16, 32, 80])
         else:
             self.num_ch_dec = np.array([16, 32, 64, 128, 256])
 
@@ -38,7 +40,7 @@ class HRDepthDecoder(nn.Module):
                 if i == 0 and j != 0:
                     num_ch_in /= 2
                 num_ch_out = num_ch_in / 2
-                # print("num_ch_in : ", num_ch_in, "num_ch_out : ", num_ch_out)
+                print("num_ch_in : ", num_ch_in, "num_ch_out : ", num_ch_out)
                 self.convs["X_{}{}_Conv_0".format(i, j)] = ConvBlock_HR(num_ch_in, num_ch_out)
 
                 # X_04 upconv 1, only add X_04 convolution
@@ -128,7 +130,7 @@ class HRDepthDecoder(nn.Module):
                         self.convs["X_{}{}_Conv_1".format(row + 1, col - 1)]]
                 if col != 1 and not self.mobile_encoder:
                     conv.append(self.convs["X_" + index + "_downsample"])
-                # print("X_{}{}".format(row+1, col-1), index, features["X_{}{}".format(row+1, col-1)].shape, low_features[0].shape)
+                print("X_{}{}".format(row+1, col-1), index, features["X_{}{}".format(row+1, col-1)].shape, low_features[0].shape)
                 features["X_" + index] = self.nestConv(conv, features["X_{}{}".format(row+1, col-1)], low_features)
                 
         x = features["X_04"]

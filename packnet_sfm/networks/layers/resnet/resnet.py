@@ -225,41 +225,42 @@ class ResNet(nn.Module):
                                    kernel_size=2,
                                    stride=2,
                                    bias=True)
-        # self.layer1 = self._make_layer(block, 85, layers[0])
+        # Channel reduction
+        # self.layer1 = self._make_layer(block, 64, layers[0])
         # self.layer2 = self._make_layer(block,
-        #                                106,
+        #                                72,
         #                                layers[1],
         #                                stride=2,
         #                                dilate=replace_stride_with_dilation[0])
         # self.layer3 = self._make_layer(block,
-        #                                127,
+        #                                80,
         #                                layers[2],
         #                                stride=2,
         #                                dilate=replace_stride_with_dilation[1])
         # self.layer4 = self._make_layer(block,
-        #                                148,
+        #                                96,
         #                                layers[3],
         #                                stride=2,
         #                                dilate=replace_stride_with_dilation[2])
         # Original
-        self.layer1 = self._make_layer(block, 64, layers[0])
+        self.layer1 = self._make_layer(block, 72, layers[0])
         self.layer2 = self._make_layer(block,
-                                       128,
+                                       80,
                                        layers[1],
                                        stride=2,
                                        dilate=replace_stride_with_dilation[0])
         self.layer3 = self._make_layer(block,
-                                       256,
+                                       96,
                                        layers[2],
                                        stride=2,
                                        dilate=replace_stride_with_dilation[1])
         self.layer4 = self._make_layer(block,
-                                       512,
+                                       112,
                                        layers[3],
                                        stride=2,
                                        dilate=replace_stride_with_dilation[2])
         self.avgpool = nn.AdaptiveAvgPool2d((1, 1))
-        self.fc = nn.Linear(512 * block.expansion, num_classes)
+        self.fc = nn.Linear(112 * block.expansion, num_classes)
 
         for m in self.modules():
             if isinstance(m, nn.Conv2d):
@@ -342,7 +343,18 @@ def _resnet(arch: str, block: Type[Union[BasicBlock,
                                          Bottleneck]], layers: List[int],
             pretrained: bool, progress: bool, **kwargs: Any) -> ResNet:
     model = ResNet(block, layers, **kwargs)
-    if pretrained:
+    if pretrained == 'np':
+        print('ResNet light model')
+        model_path = '/home/seok436/packnet-sfm-master/configs/model_best_resnet-light.pth'
+        state_dict = torch.load(model_path)
+        state_dict = state_dict['state_dict']
+        model_dict = model.state_dict()
+        state_dict = { k.replace('module.', ''): v for k, v in state_dict.items()}
+        filter_dict_enc = {k: v for k, v in state_dict.items() if k in model_dict}
+        model_dict.update(filter_dict_enc)
+        model.load_state_dict(model_dict)
+        print('model loaded.')
+    elif pretrained == 'pt':
         from torch.hub import load_state_dict_from_url
         state_dict = load_state_dict_from_url(model_urls[arch],
                                               progress=progress)

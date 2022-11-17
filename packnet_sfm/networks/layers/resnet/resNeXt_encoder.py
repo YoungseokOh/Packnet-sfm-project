@@ -67,9 +67,9 @@ class RexNeXtEncoder(nn.Module):
         super(RexNeXtEncoder, self).__init__()
 
         # Original channel
-        self.num_ch_enc = np.array([64, 64, 128, 256, 512])
+        # self.num_ch_enc = np.array([64, 64, 128, 256, 512])
         # 
-        # self.num_ch_enc = np.array([64, 85, 106, 127, 148])
+        self.num_ch_enc = np.array([64, 85, 106, 127, 148])
 
         resNeXts = {50: resnext50_32x4d,
                    101: resnext101_32x8d

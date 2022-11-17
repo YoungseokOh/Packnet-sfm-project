@@ -6,7 +6,7 @@
             "type": "python",
             "request": "launch",
             "program": "${file}",
-            "args" : ["/home/seok436/packnet-sfm-master/configs/train_kitti_HRLiteNet_640_384.yaml"],
+            "args" : ["/home/seok436/packnet-sfm-master/configs/train_nextchipDB_TP_apach5_rearview.yaml"],
             "console": "integratedTerminal"
         }
     ]

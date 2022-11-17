@@ -156,48 +156,45 @@ class InvertedResidual(nn.Module):
 
 
 class MobileNetV3(nn.Module):
-    def __init__(self, width_mult=0.75):
+    def __init__(self, width_mult, layer_size):
         super(MobileNetV3, self).__init__()
         # setting of inverted residual blocks
         # Large 1.0
-        cfgs = [
-        # k, t, c, SE, HS, s
-        [3, 1, 16, 0, 0, 1],
-        [3, 4, 24, 0, 0, 2], # feature 2
-        [3, 3, 24, 0, 0, 1],
-        [5, 3, 40, 1, 0, 2], # feature 3
-        [5, 3, 40, 1, 0, 1],
-        [5, 3, 40, 1, 0, 1],
-        [3, 6, 80, 0, 1, 2], # feature 4
-        [3, 2.5, 80, 0, 1, 1],
-        [3, 2.3, 80, 0, 1, 1],
-        [3, 2.3, 80, 0, 1, 1],
-        [3, 6, 112, 1, 1, 1],
-        [3, 6, 112, 1, 1, 1],
-        [5, 6, 160, 1, 1, 2],
-        [5, 6, 160, 1, 1, 1],
-        [5, 6, 160, 1, 1, 1] # feature 5
-        ]
-        # Large 0.75
-        # cfgs = [
-        # # k, t, c, SE, HS, s
-        # [3, 1, 16, 0, 0, 1],
-        # [3, 4, 24, 0, 0, 2], # feature 2
-        # [3, 3, 24, 0, 0, 1],
-        # [5, 3, 32, 1, 0, 2], # feature 3
-        # [5, 3, 32, 1, 0, 1],
-        # [5, 3, 32, 1, 0, 1],
-        # [3, 6, 64, 0, 1, 2], # feature 4
-        # [3, 2.5, 64, 0, 1, 1],
-        # [3, 2.3, 64, 0, 1, 1],
-        # [3, 2.3, 64, 0, 1, 1],
-        # [3, 6, 88, 1, 1, 1],
-        # [3, 6, 88, 1, 1, 1],
-        # [5, 6, 120, 1, 1, 2],
-        # [5, 6, 120, 1, 1, 1],
-        # [5, 6, 120, 1, 1, 1] # feature 5
-        # ]
-
+        print('@!{}'.format(width_mult))
+        if layer_size == 'large':
+            cfgs = [
+            # k, t, c, SE, HS, s
+            [3, 1, 16, 0, 0, 1],
+            [3, 4, 24, 0, 0, 2], # feature 2
+            [3, 3, 24, 0, 0, 1],
+            [5, 3, 40, 1, 0, 2], # feature 3
+            [5, 3, 40, 1, 0, 1],
+            [5, 3, 40, 1, 0, 1],
+            [3, 6, 80, 0, 1, 2], # feature 4
+            [3, 2.5, 80, 0, 1, 1],
+            [3, 2.3, 80, 0, 1, 1],
+            [3, 2.3, 80, 0, 1, 1],
+            [3, 6, 112, 1, 1, 1],
+            [3, 6, 112, 1, 1, 1],
+            [5, 6, 160, 1, 1, 2],
+            [5, 6, 160, 1, 1, 1],
+            [5, 6, 160, 1, 1, 1] # feature 5
+            ]
+        elif layer_size == 'small':
+            cfgs = [
+                # k, t, c, SE, HS, s 
+                [3,    1,  16, 1, 0, 2],
+                [3,  4.5,  24, 0, 0, 2],
+                [3, 3.67,  24, 0, 0, 1],
+                [5,    4,  40, 1, 1, 2],
+                [5,    6,  40, 1, 1, 1],
+                [5,    6,  40, 1, 1, 1],
+                [5,    3,  48, 1, 1, 1],
+                [5,    3,  48, 1, 1, 1],
+                [5,    6,  96, 1, 1, 2],
+                [5,    6,  96, 1, 1, 1],
+                [5,    6,  96, 1, 1, 1],
+            ]
         # building first layer
         input_channel = _make_divisible(16 * width_mult, 8)
         layers = [conv_3x3_bn(3, input_channel, 2)]
@@ -212,18 +209,29 @@ class MobileNetV3(nn.Module):
 
 
 class MobileEncoder(nn.Module):
-    def __init__(self, pretrained):
+    def __init__(self, pretrained, mult_num, layer_size):
         super(MobileEncoder, self).__init__()
-        # 1
-        # self.num_ch_enc = np.array([16, 24, 40, 80, 160])
-        # 0.75
-        self.num_ch_enc = np.array([16, 24, 32, 64, 120])
-        self.encoder = MobileNetV3()
+        # large - 1.0
+        self.num_ch_enc = np.array([16, 24, 40, 80, 160])
+        # large - 0.75
+        # self.num_ch_enc = np.array([16, 24, 32, 64, 120])
+        # small - 1.0
+        # self.num_ch_enc = np.array([16, 16, 24, 40, 96])
+        self.mult_num = mult_num
+        self.layer_size = layer_size
+        self.encoder = MobileNetV3(width_mult=self.mult_num, layer_size=self.layer_size)
         if pretrained:
-            # Large - 1
-            # model_path = 'configs/mobilenetv3-large-1cd25616.pth'
-            # Large - 0.75
-            model_path = '/home/seok436/packnet-sfm-master/configs/mobilenetv3-large-0.75-9632d2a8.pth'
+            if self.layer_size == 'large':
+                if self.mult_num == 1.0:
+                # Large - 1.0
+                    model_path = 'configs/mobilenetv3-large-1cd25616.pth'
+                elif self.mult_num == 0.75:
+                    # Large - 0.75
+                    model_path = '/home/seok436/packnet-sfm-master/configs/mobilenetv3-large-0.75-9632d2a8.pth'
+            elif self.layer_size == 'small':
+                if self.mult_num == 1.0:
+                # Small - 1.0
+                    model_path = '/home/seok436/packnet-sfm-master/configs/mobilenetv3-small-55df8e1f.pth'
             state_dict = torch.load(model_path)
             filter_dict_enc = {k: v for k, v in state_dict.items() if k in self.encoder.state_dict()}
             # change shape torch.Size

@@ -136,3 +136,5 @@ configs/train_nextchipDB_TP.yaml
 configs/train_nextchipDB.yaml
 configs/train_omnicam.yaml
 configs/mobilenetv3-large-0.75-9632d2a8.pth
+configs/mobilenetv3-small-55df8e1f.pth
+configs/train_kitti_DepthResNeXt_640_384.yaml
