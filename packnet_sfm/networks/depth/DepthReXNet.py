@@ -35,6 +35,7 @@ class DepthRexNet(nn.Module):
         self.encoder = RexnetEncoder(num_layers=num_layers, pretrained=pretrained)
         self.decoder = DepthDecoder(num_ch_enc=self.encoder.num_ch_enc)
         self.scale_inv_depth = partial(disp_to_depth, min_depth=0.1, max_depth=80.0)
+
         
     def forward(self, x):
         """

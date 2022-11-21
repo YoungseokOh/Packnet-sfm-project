@@ -102,7 +102,6 @@ venv.bak/
 
 # mypy
 .mypy_cache/
-configs/default_config.py
 configs/eval_ddad.yaml
 configs/eval_image.yaml
 configs/eval_kitti_md2.yaml
