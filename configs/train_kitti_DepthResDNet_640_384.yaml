@@ -29,7 +29,7 @@ datasets:
     augmentation:
         image_shape: (384, 640)
     train:
-        batch_size: 12
+        batch_size: 16
         dataset: ['KITTI']
         path: ['/home/seok436/data/datasets/KITTI_raw']
         split: ['data_splits/eigen_zhou_files.txt']

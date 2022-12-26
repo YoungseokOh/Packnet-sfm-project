@@ -1,7 +1,7 @@
 arch:
     max_epochs: 30
 checkpoint:
-    filepath: '/home/seok436/data/md_model/apache5_rearview/64_112/pt_19k/'
+    filepath: '/home/seok436/data/md_model/apache5_rearview/DepthrResDNet/pt_v4_intrinsic_original'
     save_top_k: -1
 model:
     name: 'SelfSupModel'
@@ -29,16 +29,16 @@ datasets:
     augmentation:
         image_shape: (384, 640)
     train:
-        batch_size: 20
+        batch_size: 18
         dataset: ['Image']
-        path: ['/home/seok436/data/A5_v2_rearview/A5_0001_rearview/']
+        path: ['/home/seok436/data/A5_v4_rearview/A5_0001_rearview/']
         split: ['{:010}']
-        repeat: [2]
+        repeat: [1]
     validation:
         dataset: ['Image']
-        path: ['/home/seok436/data/A5_v2_rearview/A5_0002_rearview/']
+        path: ['/home/seok436/data/A5_v4_rearview/A5_0002_rearview/']
         split: ['{:010}']
     test:
         dataset: ['Image']
-        path: ['/home/seok436/data/A5_v2_rearview/A5_0003_rearview/']
+        path: ['/home/seok436/data/A5_v4_rearview/A5_0003_rearview/']
         split: ['{:010}']

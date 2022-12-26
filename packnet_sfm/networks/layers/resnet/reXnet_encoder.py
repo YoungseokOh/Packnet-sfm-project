@@ -58,7 +58,7 @@ def resnet_multiimage_input(num_layers, pretrained=False, num_input_images=1):
             [loaded['conv1.weight']] * num_input_images, 1) / num_input_images
         model.load_state_dict(loaded)
     return model
-
+    
 
 class RexnetEncoder(nn.Module):
     """Pytorch module for a resnet encoder
@@ -67,13 +67,15 @@ class RexnetEncoder(nn.Module):
         super(RexnetEncoder, self).__init__()
 
         # Original channel
-        # self.num_ch_enc = np.array([64, 64, 128, 256, 512])
+        self.num_ch_enc = np.array([64, 64, 128, 256, 512])
         # +8 +8 +16 +16
         # self.num_ch_enc = np.array([64, 72, 80, 96, 112])
         # +16 +16 +16 +16
         # self.num_ch_enc = np.array([64, 80, 96, 112, 128])
+        # 64_64_128_128_256
+        # self.num_ch_enc = np.array([64, 64, 128, 128, 256])
         # +8 +8 +16 +16
-        self.num_ch_enc = np.array([64, 72, 80, 96, 112])
+        # self.num_ch_enc = np.array([64, 72, 80, 96, 112])
         # +8 +8 +8 +16
         # self.num_ch_enc = np.array([64, 64, 72, 80, 96])
         # +8 +8 +8 +8

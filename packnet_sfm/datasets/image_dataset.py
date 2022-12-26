@@ -19,14 +19,14 @@ def dummy_calibration(image):
     #                  [0.    , 0.    , 1.          ]])
 
     # Ours
-    # return np.array([[1333. , 0.    , w / 2. - 0.5],
-    #                  [0.    , 711. , h / 2. - 0.5],
-    #                  [0.    , 0.    , 1.          ]])
+    return np.array([[1333. , 0.    , w / 2. - 0.5],
+                     [0.    , 711. , h / 2. - 0.5],
+                     [0.    , 0.    , 1.          ]])
 
     # Rear camera
-    return np.array([[1104.3 , 0.    , w / 2. - 0.5],
-                     [0.    , 1104.3 , h / 2. - 0.5],
-                     [0.    , 0.    , 1.          ]])
+    # return np.array([[1104.3 , 0.    , w / 2. - 0.5],
+    #                  [0.    , 1104.3 , h / 2. - 0.5],
+    #                  [0.    , 0.    , 1.          ]])
 
 def get_idx(filename):
     return int(re.search(r'\d+', filename).group())
