@@ -6,7 +6,7 @@ from functools import partial
 
 from packnet_sfm.networks.layers.resnet.depth_decoder import DepthDecoder
 from packnet_sfm.networks.layers.resnet.layers import disp_to_depth
-from packnet_sfm.networks.layers.resnet.resNeXt_encoder import RexNeXtEncoder
+from packnet_sfm.networks.layers.resNeXt.resNeXt_encoder import RexNeXtEncoder
 
 ########################################################################################################################
 

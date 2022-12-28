@@ -6,7 +6,7 @@
             "type": "python",
             "request": "launch",
             "program": "${file}",
-            "args" : ["/home/seok436/packnet-sfm-master/configs/train_NCDB_DepthResDNet_640_384.yaml"],
+            "args" : ["/home/seok436/packnet-sfm-master/configs/train_kitti_DepthRepVGGNet_640_192.yaml"],
             "console": "integratedTerminal"
         }
     ]

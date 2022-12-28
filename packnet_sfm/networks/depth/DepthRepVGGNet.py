@@ -1,13 +1,14 @@
 # Copyright 2020 Toyota Research Institute.  All rights reserved.
 
 import torch.nn as nn
+import numpy as np
 import torch.nn.functional as F
 from functools import partial
-
-from packnet_sfm.networks.layers.resnet.DNet_decoder import DepthDecoder
+import torch
+from packnet_sfm.networks.layers.Dnet.DNet_decoder import DepthDecoder
 from packnet_sfm.networks.layers.resnet.layers import disp_to_depth
-from packnet_sfm.networks.layers.resnet.reXnet_encoder import RexnetEncoder
-
+from packnet_sfm.networks.layers.repvgg.RepVGG_encoder import RepVGGencoder
+import packnet_sfm.networks.layers.repvgg.RepVGG as RepVGG
 ########################################################################################################################
 
 class DepthRepVGGNet(nn.Module):
@@ -29,11 +30,18 @@ class DepthRepVGGNet(nn.Module):
         assert version is not None, "DispResNet needs a version"
 
         num_layers = int(version[:2])       # First two characters are the number of layers
-        pretrained = version[2:] == 'pt'    # If the last characters are "pt", use ImageNet pretraining
+        if version[2:] == 'np': #
+            pretrained = 'np'
+        elif version[2:] == 'pt':
+            pretrained = 'pt'
+            # If the last characters are "pt", use ImageNet original pretraining
+        else:
+            pretrained = False
         assert num_layers in [18, 34, 50], 'ResNet version {} not available'.format(num_layers)
-
-        self.encoder = RexnetEncoder(num_layers=num_layers, pretrained=pretrained)
-        self.decoder = DepthDecoder(num_ch_enc=self.encoder.num_ch_enc)
+        
+        self.num_ch_enc = np.array([48, 48, 96, 192, 1280])
+        self.encoder = RepVGGencoder(pretrained=pretrained)
+        self.decoder = DepthDecoder(num_ch_enc=self.num_ch_enc)
         self.scale_inv_depth = partial(disp_to_depth, min_depth=0.1, max_depth=80.0)
 
         

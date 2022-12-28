@@ -3,7 +3,6 @@
 import argparse
 import sys
 sys.path.insert(0, '/home/seok436/packnet-sfm-master')
-
 from packnet_sfm.models.model_wrapper import ModelWrapper
 from packnet_sfm.models.model_checkpoint import ModelCheckpoint
 from packnet_sfm.trainers.horovod_trainer import HorovodTrainer
