@@ -6,7 +6,7 @@ from functools import partial
 
 from packnet_sfm.networks.layers.resnet.depth_decoder import DepthDecoder
 from packnet_sfm.networks.layers.resnet.layers import disp_to_depth
-from packnet_sfm.networks.layers.resnet.reXnet_encoder import RexnetEncoder
+from packnet_sfm.networks.layers.reXnet.reXnet_encoder import RexnetEncoder
 
 ########################################################################################################################
 
@@ -40,6 +40,7 @@ class DepthReXNet(nn.Module):
         self.encoder = RexnetEncoder(num_layers=num_layers, pretrained=pretrained)
         self.decoder = DepthDecoder(num_ch_enc=self.encoder.num_ch_enc)
         self.scale_inv_depth = partial(disp_to_depth, min_depth=0.1, max_depth=80.0)
+
         
     def forward(self, x):
         """

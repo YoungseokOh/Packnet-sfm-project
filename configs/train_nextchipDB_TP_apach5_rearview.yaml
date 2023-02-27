@@ -1,7 +1,11 @@
 arch:
     max_epochs: 30
 checkpoint:
+<<<<<<< HEAD
     filepath: '/home/seok436/data/md_model/apache5_rearview/DepthrReXNet/pt_v4_intrinsic_rearview'
+=======
+    filepath: '/home/seok436/data/md_model/apache5_rearview/DepthrResDNet/pt_v4_intrinsic_original'
+>>>>>>> c05589404f1f6e299e24fb74314c1f5f5fdf7c6c
     save_top_k: -1
 model:
     name: 'SelfSupModel'
@@ -16,7 +20,11 @@ model:
         step_size: 14
         gamma: 0.5
     depth_net:
+<<<<<<< HEAD
         name: 'DepthReXNet'
+=======
+        name: 'DepthResDNet'
+>>>>>>> c05589404f1f6e299e24fb74314c1f5f5fdf7c6c
         version: '18np'
     pose_net:
         name: 'PoseResNet'

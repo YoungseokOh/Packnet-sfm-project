@@ -1,13 +1,20 @@
 arch:
+<<<<<<< HEAD
     max_epochs: 30
 checkpoint:
     filepath: '/home/seok436/data/md_model/NCDB/DepthResDNet/18/640_384/scratch/72_80_96_112_intrinsic_ours_repeat_2_lr_0.00001'
+=======
+    max_epochs: 50
+checkpoint:
+    filepath: '/home/seok436/data/md_model/NCDB/DepthResDNet/18/640_384/original_intrinsic_ours'
+>>>>>>> c05589404f1f6e299e24fb74314c1f5f5fdf7c6c
     save_top_k: -1
 model:
     name: 'SelfSupModel'
     optimizer:
         name: 'Adam'
         depth:
+<<<<<<< HEAD
             lr: 0.00001
         pose:
             lr: 0.00001
@@ -18,6 +25,18 @@ model:
     depth_net:
         name: 'DepthResDNet'
         version: '18no'
+=======
+            lr: 0.00002
+        pose:
+            lr: 0.00002
+    scheduler:
+        name: 'StepLR'
+        step_size: 14
+        gamma: 0.5
+    depth_net:
+        name: 'DepthResDNet'
+        version: '18pt'
+>>>>>>> c05589404f1f6e299e24fb74314c1f5f5fdf7c6c
     pose_net:
         name: 'PoseResNet'
         version: '18pt'

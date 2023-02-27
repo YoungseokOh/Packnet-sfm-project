@@ -106,6 +106,7 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+<<<<<<< HEAD
 configs/default_config.py
 configs/eval_ddad.yaml
 configs/eval_image.yaml
@@ -141,3 +142,7 @@ configs/train_nextchipDB.yaml
 configs/train_omnicam.yaml
 configs/mobilenetv3-large-0.75-9632d2a8.pth
 configs/mobilenetv3-small-55df8e1f.pth
+=======
+
+#config
+>>>>>>> c05589404f1f6e299e24fb74314c1f5f5fdf7c6c

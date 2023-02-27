@@ -10,7 +10,6 @@ from dgp.utils.geometry import Pose
 
 from packnet_sfm.utils.misc import make_list
 from packnet_sfm.utils.types import is_tensor, is_numpy, is_list
-
 ########################################################################################################################
 #### FUNCTIONS
 ########################################################################################################################
