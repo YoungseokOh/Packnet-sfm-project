@@ -5,7 +5,7 @@ import numpy as np
 import os
 import torch
 import sys
-sys.path.insert(0, '/home/seok436/packnet-sfm-master')
+sys.path.insert(0, '/home/seok436/packnet-sfm-master_2')
 
 from glob import glob
 from cv2 import imwrite, imread
@@ -80,7 +80,6 @@ def infer_and_save_depth(input_file, output_file, model_wrapper, image_shape, ha
     # Resize and to tensor
     image = resize_image(image, image_shape)
     image = to_tensor(image).unsqueeze(0)
-    depth_path = '/home/seok436/data/results/md_md2_epo_18_15k_crop_model/depth/'
     # Send image to GPU if available
     if torch.cuda.is_available():
         image = image.to('cuda:{}'.format(rank()), dtype=dtype)
@@ -116,7 +115,6 @@ def main(args):
 
     # Parse arguments
     config, state_dict = parse_test_file(args.checkpoint)
-
     # If no image shape is provided, use the checkpoint one
     image_shape = args.image_shape
     if image_shape is None:

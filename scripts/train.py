@@ -58,7 +58,7 @@ def train(file):
     trainer = HorovodTrainer(**config.arch, checkpoint=checkpoint)
 
     # Train model
-    trainer.fit(model_wrapper) 
+    trainer.fit(model_wrapper)
 
 
 if __name__ == '__main__':

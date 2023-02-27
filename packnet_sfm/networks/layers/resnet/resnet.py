@@ -225,42 +225,42 @@ class ResNet(nn.Module):
                                    kernel_size=2,
                                    stride=2,
                                    bias=True)
-        # self.layer1 = self._make_layer(block, 72, layers[0])
-        # self.layer2 = self._make_layer(block,
-        #                                80,
-        #                                layers[1],
-        #                                stride=2,
-        #                                dilate=replace_stride_with_dilation[0])
-        # self.layer3 = self._make_layer(block,
-        #                                96,
-        #                                layers[2],
-        #                                stride=2,
-        #                                dilate=replace_stride_with_dilation[1])
-        # self.layer4 = self._make_layer(block,
-        #                                112,
-        #                                layers[3],
-        #                                stride=2,
-        #                                dilate=replace_stride_with_dilation[2])
-        # self.fc = nn.Linear(112 * block.expansion, num_classes)
-        # Original
-        self.layer1 = self._make_layer(block, 64, layers[0])
+        self.layer1 = self._make_layer(block, 72, layers[0])
         self.layer2 = self._make_layer(block,
-                                       128,
+                                       80,
                                        layers[1],
                                        stride=2,
                                        dilate=replace_stride_with_dilation[0])
         self.layer3 = self._make_layer(block,
-                                       256,
+                                       96,
                                        layers[2],
                                        stride=2,
                                        dilate=replace_stride_with_dilation[1])
         self.layer4 = self._make_layer(block,
-                                       512,
+                                       112,
                                        layers[3],
                                        stride=2,
                                        dilate=replace_stride_with_dilation[2])
-        self.avgpool = nn.AdaptiveAvgPool2d((1, 1))
-        self.fc = nn.Linear(512 * block.expansion, num_classes)
+        self.fc = nn.Linear(112 * block.expansion, num_classes)
+        # Original
+        # self.layer1 = self._make_layer(block, 64, layers[0])
+        # self.layer2 = self._make_layer(block,
+        #                                128,
+        #                                layers[1],
+        #                                stride=2,
+        #                                dilate=replace_stride_with_dilation[0])
+        # self.layer3 = self._make_layer(block,
+        #                                256,
+        #                                layers[2],
+        #                                stride=2,
+        #                                dilate=replace_stride_with_dilation[1])
+        # self.layer4 = self._make_layer(block,
+        #                                512,
+        #                                layers[3],
+        #                                stride=2,
+        #                                dilate=replace_stride_with_dilation[2])
+        # self.avgpool = nn.AdaptiveAvgPool2d((1, 1))
+        # self.fc = nn.Linear(512 * block.expansion, num_classes)
 
         for m in self.modules():
             if isinstance(m, nn.Conv2d):
