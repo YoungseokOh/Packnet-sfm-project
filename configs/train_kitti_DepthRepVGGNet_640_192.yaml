@@ -1,16 +1,16 @@
 arch:
-    max_epochs: 50
+    max_epochs: 30
 checkpoint:
-    filepath: '/home/seok436/data/md_model/kitti/DepthRepVGGNet/18/640_192/'
+    filepath: '/home/seok436/data/md_model/kitti/DepthRepVGGNet/18/640_192/repvgg_original_decoder/'
     save_top_k: -1
 model:
     name: 'SelfSupModel'
     optimizer:
         name: 'Adam'
         depth:
-            lr: 0.0001
+            lr: 0.0002
         pose:
-            lr: 0.0001
+            lr: 0.0002
     scheduler:
         name: 'StepLR'
         step_size: 14
@@ -29,7 +29,7 @@ datasets:
     augmentation:
         image_shape: (192, 640)
     train:
-        batch_size: 18
+        batch_size: 30
         dataset: ['KITTI']
         path: ['/home/seok436/data/datasets/KITTI_raw']
         split: ['data_splits/eigen_zhou_files.txt']
