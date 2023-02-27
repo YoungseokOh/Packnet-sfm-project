@@ -6,14 +6,10 @@
             "type": "python",
             "request": "launch",
             "program": "${file}",
-<<<<<<< HEAD
             // Train
             "args" : ["/home/seok436/packnet-sfm-master_2/configs/train_NCDB_A5_DepthResNet_640_384.yaml"],
             // Evaluation
             //"args" : ["--checkpoint", "/home/seok436/data/md_model/kitti/DepthRexNet/18/640_384/DepthRexNet_scratch_channel_reduction/default_config-train_kitti_DepthReXNet_640_384-2022.09.14-19h32m13s/epoch=49_KITTI_raw-eigen_val_files-velodyne-loss=0.000.ckpt", "--config", "configs/train_kitti_DepthReXNet_640_384.yaml"],
-=======
-            "args" : ["/home/seok436/packnet-sfm-master/configs/train_kitti_DepthRepVGGNet_640_192.yaml"],
->>>>>>> c05589404f1f6e299e24fb74314c1f5f5fdf7c6c
             "console": "integratedTerminal"
         }
     ]
