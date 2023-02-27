@@ -14,14 +14,14 @@ from packnet_sfm.utils.image import load_image
 def dummy_calibration(image):
     w, h = [float(d) for d in image.size]
     # front camera
-    # return np.array([[1000. , 0.    , w / 2. - 0.5],
-    #                  [0.    , 1000. , h / 2. - 0.5],
-    #                  [0.    , 0.    , 1.          ]])
+    return np.array([[1000. , 0.    , w / 2. - 0.5],
+                     [0.    , 1000. , h / 2. - 0.5],
+                     [0.    , 0.    , 1.          ]])
 
     # Ours
-    return np.array([[1333. , 0.    , w / 2. - 0.5],
-                     [0.    , 711. , h / 2. - 0.5],
-                     [0.    , 0.    , 1.          ]])
+    # return np.array([[1333. , 0.    , w / 2. - 0.5],
+    #                  [0.    , 711. , h / 2. - 0.5],
+    #                  [0.    , 0.    , 1.          ]])
 
     # Rear camera
     # return np.array([[1104.3 , 0.    , w / 2. - 0.5],

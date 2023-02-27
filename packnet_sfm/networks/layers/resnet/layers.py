@@ -97,6 +97,10 @@ def upsample(x):
     """
     return F.interpolate(x, scale_factor=2, mode="nearest")
 
+def upsample_DNet(x, sf=2):
+    """Upsample input tensor by a factor
+    """
+    return F.interpolate(x, scale_factor=sf, mode="nearest")
 
 def upsample_DNet(x, sf=2):
     """Upsample input tensor by a factor

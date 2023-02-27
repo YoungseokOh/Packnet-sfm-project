@@ -1,7 +1,13 @@
 arch:
+<<<<<<< HEAD
+    max_epochs: 50
+checkpoint:
+    filepath: '/home/seok436/data/md_model/kitti/DepthReXNet/18/640_384/DepthReXNet_ImageNet_pt_channel_reduction/8_8_16_16'
+=======
     max_epochs: 30
 checkpoint:
     filepath: '/home/seok436/data/md_model/NCDB/DepthReXNet/18/640_384/72_80_96_112_intrinsic_ours'
+>>>>>>> c05589404f1f6e299e24fb74314c1f5f5fdf7c6c
     save_top_k: -1
 model:
     name: 'SelfSupModel'
@@ -29,16 +35,30 @@ datasets:
     augmentation:
         image_shape: (384, 640)
     train:
+<<<<<<< HEAD
+        batch_size: 20
+        dataset: ['Image']
+        path: ['/home/seok436/data/nextchipDB_SSL/crop/TP_0001/']
+=======
         batch_size: 16
         dataset: ['Image']
         path: ['/home/seok436/data/nextchipDB_SSL/crop/TP_0001_v3/']
+>>>>>>> c05589404f1f6e299e24fb74314c1f5f5fdf7c6c
         split: ['{:010}']
         repeat: [1]
     validation:
         dataset: ['Image']
+<<<<<<< HEAD
+        path: ['/home/seok436/data/nextchipDB_SSL/crop/TP_0002/']
+        split: ['{:010}']
+    test:
+        dataset: ['Image']
+        path: ['/home/seok436/data/nextchipDB_SSL/crop/TP_0003/']
+=======
         path: ['/home/seok436/data/nextchipDB_SSL/crop/TP_0002_v3/']
         split: ['{:010}']
     test:
         dataset: ['Image']
         path: ['/home/seok436/data/nextchipDB_SSL/crop/TP_0003_v3/']
+>>>>>>> c05589404f1f6e299e24fb74314c1f5f5fdf7c6c
         split: ['{:010}']

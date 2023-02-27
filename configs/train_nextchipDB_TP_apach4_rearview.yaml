@@ -1,0 +1,44 @@
+arch:
+    max_epochs: 30
+checkpoint:
+    filepath: '/home/seok436/data/md_model/apache4_rearview/64_112/pt'
+    save_top_k: -1
+model:
+    name: 'SelfSupModel'
+    optimizer:
+        name: 'Adam'
+        depth:
+            lr: 0.0001
+        pose:
+            lr: 0.0001
+    scheduler:
+        name: 'StepLR'
+        step_size: 14
+        gamma: 0.5
+    depth_net:
+        name: 'DepthResDNet'
+        version: '18pt'
+    pose_net:
+        name: 'PoseResNet'
+        version: '18pt'
+    params:
+        crop: 'garg'
+        min_depth: 0.0
+        max_depth: 80.0
+datasets:
+    augmentation:
+        image_shape: (384, 640)
+    train:
+        batch_size: 20
+        dataset: ['Image']
+        path: ['/home/seok436/data/nextchipDB_SSL/T_0001_back/']
+        split: ['{:010}']
+        repeat: [2]
+    validation:
+        dataset: ['Image']
+        path: ['/home/seok436/data/nextchipDB_SSL/T_0002_back/']
+        split: ['{:010}']
+    test:
+        dataset: ['Image']
+        path: ['/home/seok436/data/nextchipDB_SSL/T_0003_back/']
+        split: ['{:010}']

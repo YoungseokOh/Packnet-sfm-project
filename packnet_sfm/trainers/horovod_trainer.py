@@ -1,6 +1,5 @@
 # Copyright 2020 Toyota Research Institute.  All rights reserved.
 
-from cgitb import enable
 import os
 import torch
 import horovod.torch as hvd
@@ -16,7 +15,7 @@ class HorovodTrainer(BaseTrainer):
 
         hvd.init()
         torch.set_num_threads(int(os.environ.get("OMP_NUM_THREADS", 1)))
-        GPU_NUM = 0  # 원하는 GPU 번호 입력
+        GPU_NUM = 1  # 원하는 GPU 번호 입력
         device = torch.device(f'cuda:{GPU_NUM}' if torch.cuda.is_available() else 'cpu')
         torch.cuda.set_device(device)  # change allocation of current GPU
 

@@ -1,7 +1,11 @@
 arch:
     max_epochs: 50
 checkpoint:
+<<<<<<< HEAD
+    filepath: '/home/seok436/data/md_model/kitti/DepthRexNet/18/640_384/DepthRexNet_ImageNet_pt_channel_reduction/8_8_16_16'
+=======
     filepath: '/home/seok436/data/md_model/kitti/DepthRexNet/18/640_384/DepthReXNet_pt/72_80_96_112'
+>>>>>>> c05589404f1f6e299e24fb74314c1f5f5fdf7c6c
     save_top_k: -1
 model:
     name: 'SelfSupModel'
@@ -17,7 +21,11 @@ model:
         gamma: 0.5
     depth_net:
         name: 'DepthReXNet'
+<<<<<<< HEAD
+        version: '18no'
+=======
         version: '18np'
+>>>>>>> c05589404f1f6e299e24fb74314c1f5f5fdf7c6c
     pose_net:
         name: 'PoseResNet'
         version: '18pt'
@@ -29,7 +37,11 @@ datasets:
     augmentation:
         image_shape: (384, 640)
     train:
+<<<<<<< HEAD
+        batch_size: 16
+=======
         batch_size: 18
+>>>>>>> c05589404f1f6e299e24fb74314c1f5f5fdf7c6c
         dataset: ['KITTI']
         path: ['/home/seok436/data/datasets/KITTI_raw']
         split: ['data_splits/eigen_zhou_files.txt']

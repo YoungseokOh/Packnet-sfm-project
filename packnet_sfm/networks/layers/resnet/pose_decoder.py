@@ -42,7 +42,7 @@ class PoseDecoder(nn.Module):
             out = self.convs[("pose", i)](out)
             if i != 2:
                 out = self.relu(out)
-
+        
         out = out.mean(3).mean(2)
 
         out = 0.01 * out.view(-1, self.num_frames_to_predict_for, 1, 6)

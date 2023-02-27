@@ -29,7 +29,12 @@ class DepthReXNet(nn.Module):
         assert version is not None, "DispResNet needs a version"
 
         num_layers = int(version[:2])       # First two characters are the number of layers
-        pretrained = version[2:] == 'pt'    # If the last characters are "pt", use ImageNet pretraining
+        if version[2:] == 'np':
+            pretrained = 'np'
+        elif version[2:] == 'pt':
+            pretrained = 'pt'    # If the last characters are "pt", use ImageNet pretraining
+        else:
+            pretrained = False
         assert num_layers in [18, 34, 50], 'ResNet version {} not available'.format(num_layers)
 
         self.encoder = RexnetEncoder(num_layers=num_layers, pretrained=pretrained)
@@ -46,7 +51,6 @@ class DepthReXNet(nn.Module):
         x = self.decoder(x)
         disps = [x[('disp', i)] for i in range(4)]
         d_disp_0 = disps[0]
-
         if self.training:
             return [self.scale_inv_depth(d)[0] for d in disps]
         else:
