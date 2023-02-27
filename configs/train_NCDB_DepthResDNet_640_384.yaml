@@ -1,0 +1,44 @@
+arch:
+    max_epochs: 30
+checkpoint:
+    filepath: '/home/seok436/data/md_model/NCDB/DepthResDNet/18/640_384/scratch/72_80_96_112_intrinsic_ours_repeat_2_lr_0.00001'
+    save_top_k: -1
+model:
+    name: 'SelfSupModel'
+    optimizer:
+        name: 'Adam'
+        depth:
+            lr: 0.00001
+        pose:
+            lr: 0.00001
+    scheduler:
+        name: 'StepLR'
+        step_size: 15
+        gamma: 0.5
+    depth_net:
+        name: 'DepthResDNet'
+        version: '18no'
+    pose_net:
+        name: 'PoseResNet'
+        version: '18pt'
+    params:
+        crop: 'garg'
+        min_depth: 0.0
+        max_depth: 80.0
+datasets:
+    augmentation:
+        image_shape: (384, 640)
+    train:
+        batch_size: 16
+        dataset: ['Image']
+        path: ['/home/seok436/data/nextchipDB_SSL/crop/TP_0001/']
+        split: ['{:010}']
+        repeat: [1]
+    validation:
+        dataset: ['Image']
+        path: ['/home/seok436/data/nextchipDB_SSL/crop/TP_0002/']
+        split: ['{:010}']
+    test:
+        dataset: ['Image']
+        path: ['/home/seok436/data/nextchipDB_SSL/crop/TP_0003/']
+        split: ['{:010}']

@@ -17,7 +17,7 @@ model:
         gamma: 0.5
     depth_net:
         name: 'DepthReXNet'
-        version: '18np'
+        version: '18no'
     pose_net:
         name: 'PoseResNet'
         version: '18pt'
