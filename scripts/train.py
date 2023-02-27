@@ -2,7 +2,7 @@
 
 import argparse
 import sys
-sys.path.insert(0, '/home/seok436/packnet-sfm-master')
+sys.path.insert(0, '/home/seok436/packnet-sfm-master_2')
 
 from packnet_sfm.models.model_wrapper import ModelWrapper
 from packnet_sfm.models.model_checkpoint import ModelCheckpoint
@@ -50,7 +50,7 @@ def train(file):
     # model checkpoint
     checkpoint = None if config.checkpoint.filepath == '' or rank() > 0 else \
         filter_args_create(ModelCheckpoint, config.checkpoint)
-
+    
     # Initialize model wrapper
     model_wrapper = ModelWrapper(config, resume=ckpt, logger=logger)
 
@@ -58,7 +58,7 @@ def train(file):
     trainer = HorovodTrainer(**config.arch, checkpoint=checkpoint)
 
     # Train model
-    trainer.fit(model_wrapper)
+    trainer.fit(model_wrapper) 
 
 
 if __name__ == '__main__':

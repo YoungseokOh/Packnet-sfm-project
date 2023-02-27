@@ -3,7 +3,7 @@
 import argparse
 import torch
 import sys
-sys.path.insert(0, '/home/seok436/packnet-sfm-master')
+sys.path.insert(0, '/home/seok436/packnet-sfm-master_2')
 
 from packnet_sfm.models.model_wrapper import ModelWrapper
 from packnet_sfm.trainers.horovod_trainer import HorovodTrainer

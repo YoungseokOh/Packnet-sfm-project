@@ -97,6 +97,10 @@ def upsample(x):
     """
     return F.interpolate(x, scale_factor=2, mode="nearest")
 
+def upsample_DNet(x, sf=2):
+    """Upsample input tensor by a factor
+    """
+    return F.interpolate(x, scale_factor=sf, mode="nearest")
 
 class fSEModule(nn.Module):
     def __init__(self, high_feature_channel, low_feature_channels, output_channel=None):
