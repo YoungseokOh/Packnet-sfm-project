@@ -20,7 +20,6 @@ class RepVGGencoder(nn.Module):
     """
     def __init__(self, pretrained):
         super(RepVGGencoder, self).__init__()
-        # self.num_ch_enc = np.array([64, 72, 80, 96, 112])
         self.encoder = RepVGG.create_RepVGG_A0(deploy=False)
         if pretrained == 'pt':
             print('RepVGG pretrained model')
