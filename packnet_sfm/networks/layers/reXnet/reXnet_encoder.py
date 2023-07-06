@@ -67,34 +67,9 @@ class RexnetEncoder(nn.Module):
         super(RexnetEncoder, self).__init__()
 
         # Original channel
-<<<<<<< HEAD:packnet_sfm/networks/layers/resnet/reXnet_encoder.py
         # self.num_ch_enc = np.array([64, 64, 128, 256, 512])
-=======
-        self.num_ch_enc = np.array([64, 64, 128, 256, 512])
->>>>>>> c05589404f1f6e299e24fb74314c1f5f5fdf7c6c:packnet_sfm/networks/layers/reXnet/reXnet_encoder.py
-        # +8 +8 +16 +16
-        # self.num_ch_enc = np.array([64, 72, 80, 96, 112])
-        # +16 +16 +16 +16
-        # self.num_ch_enc = np.array([64, 80, 96, 112, 128])
-<<<<<<< HEAD:packnet_sfm/networks/layers/resnet/reXnet_encoder.py
         # +8 +8 +16 +16
         self.num_ch_enc = np.array([64, 72, 80, 96, 112])
-=======
-        # 64_64_128_128_256
-        # self.num_ch_enc = np.array([64, 64, 128, 128, 256])
-        # +8 +8 +16 +16
-        # self.num_ch_enc = np.array([64, 72, 80, 96, 112])
->>>>>>> c05589404f1f6e299e24fb74314c1f5f5fdf7c6c:packnet_sfm/networks/layers/reXnet/reXnet_encoder.py
-        # +8 +8 +8 +16
-        # self.num_ch_enc = np.array([64, 64, 72, 80, 96])
-        # +8 +8 +8 +8
-        # self.num_ch_enc = np.array([64, 64, 72, 80, 88])
-        # +4 +8 +16 +32
-        # self.num_ch_enc = np.array([64, 68, 76, 92, 124])
-        # +4 +4 +8 +16
-        # self.num_ch_enc = np.array([64, 68, 76, 80, 96])
-        # +4 +4 +4 +4
-        # self.num_ch_enc = np.array([64, 64, 72, 80, 96])
 
         resnets = {18: resnet18,
                    34: resnet34,

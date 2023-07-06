@@ -1,23 +1,20 @@
 arch:
-    max_epochs: 30
-checkpoint:
-    filepath: '/home/seok436/data/md_model/NCDB/DepthReXNet/18/640_384/DepthReXNet_ImageNet_pt_channel_reduction/8_8_16_16'
-    save_top_k: -1
+    max_epochs: 50
 model:
-    name: 'SelfSupModel'
+    name: 'GenericSelfSupModel'
     optimizer:
         name: 'Adam'
         depth:
-            lr: 0.0001
+            lr: 0.0002
         pose:
-            lr: 0.0001
+            lr: 0.0002
     scheduler:
         name: 'StepLR'
-        step_size: 14
+        step_size: 30
         gamma: 0.5
     depth_net:
-        name: 'DepthReXNet'
-        version: '18np'
+        name: 'RaySurfaceResNet'
+        version: '18pt'
     pose_net:
         name: 'PoseResNet'
         version: '18pt'
@@ -31,14 +28,14 @@ datasets:
     train:
         batch_size: 20
         dataset: ['Image']
-        path: ['/home/seok436/data/nextchipDB_SSL/crop/TP_0001/']
+        path: ['/home/seok436/data/A5_v1_frontview/A5T_0001/']
         split: ['{:010}']
         repeat: [1]
     validation:
         dataset: ['Image']
-        path: ['/home/seok436/data/nextchipDB_SSL/crop/TP_0002/']
+        path: ['/home/seok436/data/A5_v1_frontview/A5T_0002/']
         split: ['{:010}']
     test:
         dataset: ['Image']
-        path: ['/home/seok436/data/nextchipDB_SSL/crop/TP_0003/']
+        path: ['/home/seok436/data/A5_v1_frontview/A5T_0003/']
         split: ['{:010}']

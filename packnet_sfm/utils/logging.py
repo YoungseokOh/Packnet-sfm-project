@@ -3,9 +3,8 @@
 import os
 from termcolor import colored
 from functools import partial
-
-from packnet_sfm.utils.horovod import on_rank_0
-
+import sys
+sys.path.insert(0, '/home/seok436/packnet-sfm-master_2')
 
 def pcolor(string, color, on_color=None, attrs=None):
     """
@@ -79,7 +78,6 @@ def s3_url(config):
         config.checkpoint.s3_path[5:], config.name)
 
 
-@on_rank_0
 def print_config(config, color=('blue', 'red', 'cyan'), attrs=('bold', 'dark')):
     """
     Prints header for model configuration

@@ -1,7 +1,7 @@
 arch:
-    max_epochs: 50
+    max_epochs: 30
 checkpoint:
-    filepath: '/home/seok436/data/md_model/A5_frontview/8_8_16_16/intrinsics_1000'
+    filepath: '/home/seok436/data/md_model/NCDB/A5_v1_frontview/original/intrinsics_1000'
     save_top_k: -1
 model:
     name: 'SelfSupModel'
@@ -17,7 +17,7 @@ model:
         gamma: 0.5
     depth_net:
         name: 'DepthReXNet'
-        version: '18np'
+        version: '18pt'
     pose_net:
         name: 'PoseResNet'
         version: '18pt'

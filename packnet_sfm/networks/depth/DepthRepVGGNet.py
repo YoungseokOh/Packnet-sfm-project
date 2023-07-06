@@ -8,7 +8,9 @@ import torch
 # DNet decoder
 # from packnet_sfm.networks.layers.Dnet.DNet_decoder import DepthDecoder
 # Monodepth2 decoder
-from packnet_sfm.networks.layers.resnet.depth_decoder import DepthDecoder
+# from packnet_sfm.networks.layers.resnet.depth_decoder import DepthDecoder
+# ECA_Dnet_decoder
+from packnet_sfm.networks.layers.Dnet.ECA_dnet_decoder import ECADnet_DepthDecoder
 from packnet_sfm.networks.layers.resnet.layers import disp_to_depth
 from packnet_sfm.networks.layers.repvgg.RepVGG_encoder import RepVGGencoder
 import packnet_sfm.networks.layers.repvgg.RepVGG as RepVGG
@@ -44,7 +46,7 @@ class DepthRepVGGNet(nn.Module):
         
         self.num_ch_enc = np.array([48, 48, 96, 192, 1280])
         self.encoder = RepVGGencoder(pretrained=pretrained)
-        self.decoder = DepthDecoder(num_ch_enc=self.num_ch_enc)
+        self.decoder = ECADnet_DepthDecoder(num_ch_enc=self.num_ch_enc)
         self.scale_inv_depth = partial(disp_to_depth, min_depth=0.1, max_depth=80.0)
 
         
