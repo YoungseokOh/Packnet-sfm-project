@@ -21,10 +21,11 @@ class RepVGGencoder(nn.Module):
     def __init__(self, pretrained):
         super(RepVGGencoder, self).__init__()
         self.encoder = RepVGG.create_RepVGG_A0(deploy=False)
+        print('----- RepVGG -----')
         if pretrained == 'pt':
-            print('RepVGG pretrained model')
             self.encoder.load_state_dict(
                 torch.load('/home/seok436/packnet-sfm-master/configs/RepVGG-A0-train.pth'))
+            print('RepVGG pretrained model loaded!')
 
     def forward(self, input_image):
         self.features = []

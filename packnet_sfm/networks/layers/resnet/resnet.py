@@ -225,30 +225,9 @@ class ResNet(nn.Module):
                                    kernel_size=2,
                                    stride=2,
                                    bias=True)
-<<<<<<< HEAD
-        self.layer1 = self._make_layer(block, 72, layers[0])
-=======
+
         # Channel reduction
-        # self.layer1 = self._make_layer(block, 72, layers[0])
-        # self.layer2 = self._make_layer(block,
-        #                                80,
-        #                                layers[1],
-        #                                stride=2,
-        #                                dilate=replace_stride_with_dilation[0])
-        # self.layer3 = self._make_layer(block,
-        #                                96,
-        #                                layers[2],
-        #                                stride=2,
-        #                                dilate=replace_stride_with_dilation[1])
-        # self.layer4 = self._make_layer(block,
-        #                                112,
-        #                                layers[3],
-        #                                stride=2,
-        #                                dilate=replace_stride_with_dilation[2])
-        # self.fc = nn.Linear(112 * block.expansion, num_classes)
-        # Original
-        self.layer1 = self._make_layer(block, 64, layers[0])
->>>>>>> c05589404f1f6e299e24fb74314c1f5f5fdf7c6c
+        self.layer1 = self._make_layer(block, 72, layers[0])
         self.layer2 = self._make_layer(block,
                                        80,
                                        layers[1],
@@ -265,6 +244,7 @@ class ResNet(nn.Module):
                                        stride=2,
                                        dilate=replace_stride_with_dilation[2])
         self.fc = nn.Linear(112 * block.expansion, num_classes)
+
         # Original
         # self.layer1 = self._make_layer(block, 64, layers[0])
         # self.layer2 = self._make_layer(block,
@@ -368,11 +348,7 @@ def _resnet(arch: str, block: Type[Union[BasicBlock,
     model = ResNet(block, layers, **kwargs)
     if pretrained == 'np':
         print('ResNet light model')
-<<<<<<< HEAD
-        model_path = '/home/seok436/packnet-sfm-master_2/configs/model_best_resnet-light.pth'
-=======
         model_path = '/home/seok436/packnet-sfm-master/configs/model_best_resnet-light.pth'
->>>>>>> c05589404f1f6e299e24fb74314c1f5f5fdf7c6c
         state_dict = torch.load(model_path)
         state_dict = state_dict['state_dict']
         model_dict = model.state_dict()
@@ -381,6 +357,16 @@ def _resnet(arch: str, block: Type[Union[BasicBlock,
         model_dict.update(filter_dict_enc)
         model.load_state_dict(model_dict)
         print('model loaded.')
+    elif pretrained == 'a4':
+        model_path = '/home/seok436/data/md_model/NCDB/DepthReXNet/18/640_384/DepthReXNet_ImageNet_pt_channel_reduction/8_8_16_16/default_config-train_NCDB_A4_DepthReXNet_640_384-2023.03.07-23h56m11s/epoch=39_-loss=0.000.ckpt'
+        state_dict = torch.load(model_path)
+        state_dict = state_dict['state_dict']
+        model_dict = model.state_dict()
+        state_dict = { k.replace('module.', ''): v for k, v in state_dict.items()}
+        filter_dict_enc = {k: v for k, v in state_dict.items() if k in model_dict}
+        model_dict.update(filter_dict_enc)
+        model.load_state_dict(model_dict)
+        print('A4-40k-epo-39 pretrained model loaded.')
     elif pretrained == 'pt':
         from torch.hub import load_state_dict_from_url
         state_dict = load_state_dict_from_url(model_urls[arch],

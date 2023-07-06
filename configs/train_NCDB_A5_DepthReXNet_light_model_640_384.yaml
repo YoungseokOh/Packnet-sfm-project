@@ -1,11 +1,7 @@
 arch:
     max_epochs: 30
 checkpoint:
-<<<<<<< HEAD
-    filepath: '/home/seok436/data/md_model/apache5_rearview/DepthrReXNet/pt_v4_intrinsic_rearview'
-=======
-    filepath: '/home/seok436/data/md_model/apache5_rearview/DepthrResDNet/pt_v4_intrinsic_original'
->>>>>>> c05589404f1f6e299e24fb74314c1f5f5fdf7c6c
+    filepath: '/home/seok436/data/md_model/A5_v4_frontview/8_8_16_16/intrinsics_1000'
     save_top_k: -1
 model:
     name: 'SelfSupModel'
@@ -20,11 +16,7 @@ model:
         step_size: 14
         gamma: 0.5
     depth_net:
-<<<<<<< HEAD
         name: 'DepthReXNet'
-=======
-        name: 'DepthResDNet'
->>>>>>> c05589404f1f6e299e24fb74314c1f5f5fdf7c6c
         version: '18np'
     pose_net:
         name: 'PoseResNet'
@@ -37,16 +29,16 @@ datasets:
     augmentation:
         image_shape: (384, 640)
     train:
-        batch_size: 18
+        batch_size: 12
         dataset: ['Image']
-        path: ['/home/seok436/data/A5_v4_rearview/A5_0001_rearview/']
+        path: ['/home/seok436/data/A5_v4_frontview/A5T_0001/']
         split: ['{:010}']
         repeat: [1]
     validation:
         dataset: ['Image']
-        path: ['/home/seok436/data/A5_v4_rearview/A5_0002_rearview/']
+        path: ['/home/seok436/data/A5_v4_frontview/A5T_0002/']
         split: ['{:010}']
     test:
         dataset: ['Image']
-        path: ['/home/seok436/data/A5_v4_rearview/A5_0003_rearview/']
+        path: ['/home/seok436/data/A5_v4_frontview/A5T_0003/']
         split: ['{:010}']

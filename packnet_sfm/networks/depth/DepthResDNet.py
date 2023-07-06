@@ -4,16 +4,9 @@ import torch.nn as nn
 import torch.nn.functional as F
 from functools import partial
 
-<<<<<<< HEAD
 from packnet_sfm.networks.layers.resnet.DNet_decoder import DepthDecoder
 from packnet_sfm.networks.layers.resnet.layers import disp_to_depth
-from packnet_sfm.networks.layers.resnet.reXnet_encoder import RexnetEncoder
-=======
-from packnet_sfm.networks.layers.Dnet.DNet_decoder import DepthDecoder
-from packnet_sfm.networks.layers.resnet.layers import disp_to_depth
 from packnet_sfm.networks.layers.reXnet.reXnet_encoder import RexnetEncoder
->>>>>>> c05589404f1f6e299e24fb74314c1f5f5fdf7c6c
-
 ########################################################################################################################
 
 class DepthResDNet(nn.Module):
