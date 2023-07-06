@@ -68,8 +68,25 @@ class RexnetEncoder(nn.Module):
 
         # Original channel
         # self.num_ch_enc = np.array([64, 64, 128, 256, 512])
+<<<<<<< HEAD
         # +8 +8 +16 +16
         self.num_ch_enc = np.array([64, 72, 80, 96, 112])
+=======
+    
+        # self.num_ch_enc = np.array([64, 64, 128, 256, 512])
+        # +8 +8 +16 +16
+        self.num_ch_enc = np.array([64, 72, 80, 96, 112])
+        # +8 +8 +8 +16
+        # self.num_ch_enc = np.array([64, 64, 72, 80, 96])
+        # +8 +8 +8 +8
+        # self.num_ch_enc = np.array([64, 64, 72, 80, 88])
+        # +4 +8 +16 +32
+        # self.num_ch_enc = np.array([64, 68, 76, 92, 124])
+        # +4 +4 +8 +16
+        # self.num_ch_enc = np.array([64, 68, 76, 80, 96])
+        # +4 +4 +4 +4
+        # self.num_ch_enc = np.array([64, 64, 72, 80, 96])
+>>>>>>> 800fbdba62757078bf571131e7037ad258af568b
 
         resnets = {18: resnet18,
                    34: resnet34,
@@ -90,9 +107,9 @@ class RexnetEncoder(nn.Module):
 
     def forward(self, input_image):
         self.features = []
-        # x = (input_image - 0.45) / 0.225
+        x = (input_image - 0.45) / 0.225
         # Origin
-        x = self.encoder.conv1(input_image)
+        x = self.encoder.conv1(x)
         x = self.encoder.bn1(x)
         # revise
         # x = self.encoder.conv1_rex(x)

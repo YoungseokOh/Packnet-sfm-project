@@ -5,7 +5,7 @@ import numpy as np
 import os
 import torch
 import sys
-sys.path.insert(0, '/home/seok436/packnet-sfm-master_2')
+sys.path.insert(0, '/home/seok436/packnet-sfm-master')
 
 from glob import glob
 from cv2 import imwrite, imread

@@ -31,6 +31,8 @@ class DepthReXNet(nn.Module):
         num_layers = int(version[:2])       # First two characters are the number of layers
         if version[2:] == 'np':
             pretrained = 'np'
+        elif version[2:] == 'a4':
+            pretrained = 'a4'
         elif version[2:] == 'pt':
             pretrained = 'pt'    # If the last characters are "pt", use ImageNet pretraining
         else:

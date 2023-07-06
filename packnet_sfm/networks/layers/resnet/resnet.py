@@ -357,6 +357,16 @@ def _resnet(arch: str, block: Type[Union[BasicBlock,
         model_dict.update(filter_dict_enc)
         model.load_state_dict(model_dict)
         print('model loaded.')
+    elif pretrained == 'a4':
+        model_path = '/home/seok436/data/md_model/NCDB/DepthReXNet/18/640_384/DepthReXNet_ImageNet_pt_channel_reduction/8_8_16_16/default_config-train_NCDB_A4_DepthReXNet_640_384-2023.03.07-23h56m11s/epoch=39_-loss=0.000.ckpt'
+        state_dict = torch.load(model_path)
+        state_dict = state_dict['state_dict']
+        model_dict = model.state_dict()
+        state_dict = { k.replace('module.', ''): v for k, v in state_dict.items()}
+        filter_dict_enc = {k: v for k, v in state_dict.items() if k in model_dict}
+        model_dict.update(filter_dict_enc)
+        model.load_state_dict(model_dict)
+        print('A4-40k-epo-39 pretrained model loaded.')
     elif pretrained == 'pt':
         from torch.hub import load_state_dict_from_url
         state_dict = load_state_dict_from_url(model_urls[arch],
