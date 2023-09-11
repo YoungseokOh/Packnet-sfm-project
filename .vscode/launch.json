@@ -5,12 +5,15 @@
             "name": "Python: Current File",
             "type": "python",
             "request": "launch",
-            "program": "scripts/train.py",
+            "program": "${file}",
             // Train
-            "args" : ["/home/seok436/packnet-sfm-master_2/configs/train_NCDB_A5_generic.yaml"],
+            // "args" : ["/home/seok436/packnet-sfm-master_2/configs/train_NCDB_A5_generic_rearview.yaml"],
             // Evaluation
             // "args" : ["--checkpoint", "/home/seok436/data/md_model/A5_frontview/repVGG_ECA_Dnet/KITTI/default_config-train_KITTI_A5_RepVGGNet_640_384-2023.02.27-18h03m45s/epoch=19_KITTI_raw-eigen_val_files-velodyne-loss=0.000.ckpt", 
             // "--config", "configs/train_KITTI_A5_RepVGGNet_640_384.yaml"],
+            // Inference
+            "args" : ["--checkpoint", "/home/seok436/data/md_model/A5_v5_rearview_ray/default_config-train_NCDB_A5_generic_rearview-2023.07.18-16h50m28s/epoch=12_-loss=0.000.ckpt",
+            "--input", "/home/seok436/data/A5_rearview_infer_test", "--output", "/home/seok436/data/A5_rearview_infer_test/results"],
             "console": "integratedTerminal"
         }
     ]

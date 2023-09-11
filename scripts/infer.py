@@ -5,7 +5,7 @@ import numpy as np
 import os
 import torch
 import sys
-sys.path.insert(0, '/home/seok436/packnet-sfm-master')
+sys.path.insert(0, '/home/seok436/packnet-sfm-master_2')
 
 from glob import glob
 from cv2 import imwrite, imread
@@ -158,3 +158,5 @@ def main(args):
 if __name__ == '__main__':
     args = parse_args()
     main(args)
+
+# %%

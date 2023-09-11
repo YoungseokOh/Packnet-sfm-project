@@ -145,7 +145,8 @@ class GenericMultiViewPhotometricLoss(LossBase):
             progressive_scaling, self.n)
         self.canonical_ray_surface = torch.tensor(
             #np.load("kitti_ray_template.npy"))
-            np.load("omnicam_ray_template.npy"))
+            # np.load("configs/omnicam_ray_template.npy"))
+            np.load("/home/seok436/packnet-sfm-master_2/configs/A5_rearview_ray_template_320x192.npy"))
 
         # Asserts
         if self.automask_loss:

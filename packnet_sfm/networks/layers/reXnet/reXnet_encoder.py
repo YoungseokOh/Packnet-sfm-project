@@ -68,10 +68,6 @@ class RexnetEncoder(nn.Module):
 
         # Original channel
         # self.num_ch_enc = np.array([64, 64, 128, 256, 512])
-<<<<<<< HEAD
-        # +8 +8 +16 +16
-        self.num_ch_enc = np.array([64, 72, 80, 96, 112])
-=======
     
         # self.num_ch_enc = np.array([64, 64, 128, 256, 512])
         # +8 +8 +16 +16
@@ -86,7 +82,6 @@ class RexnetEncoder(nn.Module):
         # self.num_ch_enc = np.array([64, 68, 76, 80, 96])
         # +4 +4 +4 +4
         # self.num_ch_enc = np.array([64, 64, 72, 80, 96])
->>>>>>> 800fbdba62757078bf571131e7037ad258af568b
 
         resnets = {18: resnet18,
                    34: resnet34,
