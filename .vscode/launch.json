@@ -7,11 +7,7 @@
             "request": "launch",
             "program": "scripts/train.py",
             // Train
-<<<<<<< HEAD
             "args" : ["/home/seok436/packnet-sfm-master_2/configs/train_NCDB_A5_generic.yaml"],
-=======
-            "args" : ["/home/seok436/packnet-sfm-master/configs/train_NCDB_A5_DepthReXNet_light_model_640_384.yaml"],
->>>>>>> 800fbdba62757078bf571131e7037ad258af568b
             // Evaluation
             // "args" : ["--checkpoint", "/home/seok436/data/md_model/A5_frontview/repVGG_ECA_Dnet/KITTI/default_config-train_KITTI_A5_RepVGGNet_640_384-2023.02.27-18h03m45s/epoch=19_KITTI_raw-eigen_val_files-velodyne-loss=0.000.ckpt", 
             // "--config", "configs/train_KITTI_A5_RepVGGNet_640_384.yaml"],

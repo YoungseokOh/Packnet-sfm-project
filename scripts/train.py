@@ -2,11 +2,7 @@
 
 import argparse
 import sys
-<<<<<<< HEAD
 sys.path.insert(0, '/home/seok436/packnet-sfm-master_2')
-=======
-sys.path.insert(0, '/home/seok436/packnet-sfm-master')
->>>>>>> 800fbdba62757078bf571131e7037ad258af568b
 from packnet_sfm.models.model_wrapper import ModelWrapper
 from packnet_sfm.models.model_checkpoint import ModelCheckpoint
 from packnet_sfm.trainers.horovod_trainer import HorovodTrainer
